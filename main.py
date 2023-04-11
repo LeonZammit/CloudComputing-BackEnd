@@ -28,16 +28,16 @@ print(GenerateRandomNumber())
 
 Base = declarative_base()
 
-class TableOfNumbers(Base):
-    __tablename__ = "NumbersGenerated"
-    id = Column(Integer, primary_key=True)
-    instanceName = Column((String(255))) #255 maximum characters.
-    generatedNumber = Column(Integer)
+#class TableOfNumbers(Base):
+    #__tablename__ = "NumbersGenerated"
+    #id = Column(Integer, primary_key=True)
+    #instanceName = Column((String(255))) #255 maximum characters.
+    #generatedNumber = Column(Integer)
 
-class InstanceCounter(Base):
-    __tablename__ = "instanceCount"
-    instanceName = Column(String(255), primary_key=True)
-    countGenerated = Column(Integer)
+#class InstanceCounter(Base):
+    #__tablename__ = "instanceCount"
+   #instanceName = Column(String(255), primary_key=True)
+    #countGenerated = Column(Integer)
 
 Session = sessionmaker(bind=engine)
 
