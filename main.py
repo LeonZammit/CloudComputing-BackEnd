@@ -15,7 +15,7 @@ db_name = "storage-number"
 cloud_sql_instance_name = "cloudassignment-383409:europe-west1:db-instance"
 
 connection_string = ('mysql+mysqlconnector://{0}:{1}@/{2}?unix_socket={3}'.
-                       format(db_user, db_pass, db_name, f'/cloudsql/{cloud_sql_instance_name}'))
+    format(db_user, db_pass, db_name, f'/cloudsql/{cloud_sql_instance_name}'))
 engine = create_engine(connection_string)
 
 @app.route('/GenerateRandomNumber')
@@ -29,7 +29,7 @@ print(GenerateRandomNumber())
 Base = declarative_base()
 
 class TableOfNumbers(Base):
-    __tablename__ = "Numbers Generated"
+    __tablename__ = "NumbersGenerated"
     id = Column(Integer, primary_key=True)
     instanceName = Column((String(255))) #255 maximum characters.
     generatedNumber = Column(Integer)
