@@ -1,11 +1,10 @@
 runtime: python37
+service: api
 handlers:
-- url: /css
-  static_dir: css
-
-- url: /js
-  static_dir: js
-  
 - url: /.*
-  static_files: index.html
-  upload: index.html
+  script: auto
+
+automatic_scaling: 
+  min_instances: 5
+  max_instances: 15
+  target_cpu_utilization: 0.7
