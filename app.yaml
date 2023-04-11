@@ -1,5 +1,8 @@
 runtime: python37
-service: api 
+service: api
+handlers:
+- url: /.*
+  script: auto
 
 automatic_scaling: 
   min_instances: 5
