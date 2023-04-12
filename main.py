@@ -23,13 +23,13 @@ Base = declarative_base()
 class TableOfNumbers(Base):
     __tablename__ = "NumbersGenerated"
     id = Column(Integer, primary_key=True)
-    instance_name = Column((String(255))) #255 maximum characters.
+    instanceName = Column((String(255))) #255 maximum characters.
     generatedNumber = Column(Integer)
 
 class InstanceCounter(Base):
     __tablename__ = "instance_counter"
     instance_name = Column(String(255), primary_key=True)
-    count_Generated = Column(Integer)
+    count_generated = Column(Integer)
 
 @app.route('/GenerateRandomNumber')
 def GenerateRandomNumber():
@@ -43,21 +43,19 @@ def GenerateRandomNumber():
     instance_counter = session.query(InstanceCounter).filter_by(instance_name=instance_id).first()
 
     if instance_counter:
-        instance_counter.count_Generated +=1
+        instance_counter.count_generated +=1
     else:
         #create a new row for that instance and set it to 1
-        new_instance_counter = InstanceCounter(instance_name=instance_id, count_Generated=1)
+        new_instance_counter = InstanceCounter(instance_name=instance_id, count_generated=1)
         session.add(new_instance_counter)
 
-    new_number = TableOfNumbers(instance_name=instance_id, generatedNumber=numbers)
+    new_number = TableOfNumbers(instanceName=instance_id, generatedNumber=numbers)
 
     # Add new instance to session and commit changes to database
     session.add(new_number)
     session.commit()
 
     return "Random Number generated: " + str(numbers) 
-
-print(GenerateRandomNumber())
 
 @app.route('/GetResults')
 def GetResults():
@@ -68,7 +66,7 @@ def GetResults():
     instance_counters = session.query(InstanceCounter).all()
 
     for instance_counter in instance_counters:
-        print(f"{instance_counter.instance_name}: {instance_counter.count_Generated}")
+        print(f"{instance_counter.instance_name}: {instance_counter.count_generated}")
 
     return "Instance counters printed to console"
 
