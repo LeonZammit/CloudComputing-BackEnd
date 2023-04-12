@@ -22,24 +22,35 @@ engine = create_engine(connection_string)
 def GenerateRandomNumber():
     numbers = random.randint(0,100000)
 
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    new_number = TableOfNumbers(instanceName=cloud_sql_instance_name, generatedNumber=numbers)
+
+    # Add new instance to session and commit changes to database
+    session.add(new_number)
+    session.commit()
+
     return "Random Number generated: " + str(numbers) 
 
 print(GenerateRandomNumber())
 
 Base = declarative_base()
 
-#class TableOfNumbers(Base):
-    #__tablename__ = "NumbersGenerated"
-    #id = Column(Integer, primary_key=True)
-    #instanceName = Column((String(255))) #255 maximum characters.
-    #generatedNumber = Column(Integer)
+class TableOfNumbers(Base):
+    __tablename__ = "NumbersGenerated"
+    id = Column(Integer, primary_key=True)
+    instanceName = Column((String(255))) #255 maximum characters.
+    generatedNumber = Column(Integer)
 
-#class InstanceCounter(Base):
-    #__tablename__ = "instanceCount"
-   #instanceName = Column(String(255), primary_key=True)
-    #countGenerated = Column(Integer)
+class InstanceCounter(Base):
+    __tablename__ = "instanceCount"
+    instanceName = Column(String(255), primary_key=True)
+    countGenerated = Column(Integer)
 
-Session = sessionmaker(bind=engine)
+#@app.route('/GetResults')
+#def GetResults():
+    #session = Session()
 
 if __name__ == '__main__':
     app.run()
