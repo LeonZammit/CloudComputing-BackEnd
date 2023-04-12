@@ -68,7 +68,7 @@ def GetResults():
     instance_counters = session.query(InstanceCounter).all()
 
     for instance_counter in instance_counters:
-        print(f"{instance_counter.instanceName}: {instance_counter.countGenerated}")
+        print(f"{instance_counter.instance_name}: {instance_counter.count_Generated}")
 
     return "Instance counters printed to console"
 
