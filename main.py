@@ -23,7 +23,7 @@ Base = declarative_base()
 class TableOfNumbers(Base):
     __tablename__ = "NumbersGenerated"
     id = Column(Integer, primary_key=True)
-    instanceName = Column((String(255))) #255 maximum characters.
+    instance_name = Column((String(255))) #255 maximum characters.
     generatedNumber = Column(Integer)
 
 class InstanceCounter(Base):
