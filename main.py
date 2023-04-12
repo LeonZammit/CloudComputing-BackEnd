@@ -18,6 +18,19 @@ connection_string = ('mysql+mysqlconnector://{0}:{1}@/{2}?unix_socket={3}'.
     format(db_user, db_pass, db_name, f'/cloudsql/{cloud_sql_instance_name}'))
 engine = create_engine(connection_string)
 
+Base = declarative_base()
+
+class TableOfNumbers(Base):
+    __tablename__ = "NumbersGenerated"
+    id = Column(Integer, primary_key=True)
+    instanceName = Column((String(255))) #255 maximum characters.
+    generatedNumber = Column(Integer)
+
+class InstanceCounter(Base):
+    __tablename__ = "instanceCount"
+    instanceName = Column(String(255), primary_key=True)
+    countGenerated = Column(Integer)
+
 @app.route('/GenerateRandomNumber')
 def GenerateRandomNumber():
     numbers = random.randint(0,100000)
@@ -34,19 +47,6 @@ def GenerateRandomNumber():
     return "Random Number generated: " + str(numbers) 
 
 print(GenerateRandomNumber())
-
-Base = declarative_base()
-
-class TableOfNumbers(Base):
-    __tablename__ = "NumbersGenerated"
-    id = Column(Integer, primary_key=True)
-    instanceName = Column((String(255))) #255 maximum characters.
-    generatedNumber = Column(Integer)
-
-class InstanceCounter(Base):
-    __tablename__ = "instanceCount"
-    instanceName = Column(String(255), primary_key=True)
-    countGenerated = Column(Integer)
 
 #@app.route('/GetResults')
 #def GetResults():
