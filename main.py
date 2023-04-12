@@ -34,11 +34,12 @@ class InstanceCounter(Base):
 @app.route('/GenerateRandomNumber')
 def GenerateRandomNumber():
     numbers = random.randint(0,100000)
+    instance_id = os.environ.get('GAE_INSTANCE')
 
     Session = sessionmaker(bind=engine)
     session = Session()
 
-    new_number = TableOfNumbers(instanceName=cloud_sql_instance_name, generatedNumber=numbers)
+    new_number = TableOfNumbers(instanceName=instance_id, generatedNumber=numbers)
 
     # Add new instance to session and commit changes to database
     session.add(new_number)
