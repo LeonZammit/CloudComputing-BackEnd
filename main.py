@@ -5,6 +5,8 @@ import mysql.connector
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import text
+
 
 app = Flask(__name__)
 
@@ -48,7 +50,7 @@ def GetResults():
     session = Session()
 
      # Execute SQL query to get instance counts
-    results = session.execute('SELECT instanceName, COUNT(*) AS instance_count FROM NumbersGenerated GROUP BY instanceName')
+    results = session.execute(text('SELECT instanceName, COUNT(*) AS instance_count FROM NumbersGenerated GROUP BY instanceName')).fetchall()
 
     # Create an HTML table to display the results
     tableOutput = '<table><thead><tr><th>Instance Name</th><th>Number of Generated Numbers</th></tr></thead><tbody>'
