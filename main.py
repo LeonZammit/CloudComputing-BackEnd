@@ -49,6 +49,14 @@ def GetResults():
     Session = sessionmaker(bind=engine)
     session = Session()
 
+    # Get largest number query result
+    largest_number_result = session.execute('SELECT instanceName, MAX(generatedNumber) AS largest_number FROM NumbersGenerated').fetchone()
+    largest_number = f"Largest number generated ({largest_number_result[1]}) by instance: {largest_number_result[0]}"
+
+    # Get smallest number query result
+    smallest_number_result = session.execute('SELECT instanceName, MIN(generatedNumber) AS smallest_number FROM NumbersGenerated').fetchone()
+    smallest_number = f"Smallest number generated ({smallest_number_result[1]}) by instance: {smallest_number_result[0]}"
+
      # Execute SQL query to get instance counts
     results = session.execute(text('SELECT instanceName, COUNT(*) AS instance_count FROM NumbersGenerated GROUP BY instanceName')).fetchall()
 
@@ -58,7 +66,8 @@ def GetResults():
         tableOutput += f'<tr><td>{row.instanceName}</td><td style="text-align: center;">{row.instance_count}</td></tr>'
     tableOutput += '</tbody></table>'
 
-    return tableOutput
+    result = f"<p>{largest_number}</p><p>{smallest_number}</p>{tableOutput}"
+    return result
 
 if __name__ == '__main__':
     app.run()
