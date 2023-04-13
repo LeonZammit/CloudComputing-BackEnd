@@ -50,11 +50,11 @@ def GetResults():
     session = Session()
 
     # Get largest number query result
-    largest_number_result = session.execute('SELECT instanceName, MAX(generatedNumber) AS largest_number FROM NumbersGenerated').fetchone()
+    largest_number_result = session.execute(text('SELECT instanceName, MAX(generatedNumber) AS largest_number FROM NumbersGenerated')).fetchone()
     largest_number = f"Largest number generated ({largest_number_result[1]}) by instance: {largest_number_result[0]}"
 
     # Get smallest number query result
-    smallest_number_result = session.execute('SELECT instanceName, MIN(generatedNumber) AS smallest_number FROM NumbersGenerated').fetchone()
+    smallest_number_result = session.execute(text('SELECT instanceName, MIN(generatedNumber) AS smallest_number FROM NumbersGenerated')).fetchone()
     smallest_number = f"Smallest number generated ({smallest_number_result[1]}) by instance: {smallest_number_result[0]}"
 
      # Execute SQL query to get instance counts
