@@ -69,7 +69,7 @@ def GetResults():
     result = f"<p>{largest_number}</p><p>{smallest_number}</p>{tableOutput}"
     return result
 
-@app.route("/clear", methods=["POST"])
+@app.route("/clear", methods=["GET","POST"])
 def clear_data():
     Session = sessionmaker(bind=engine)
     session = Session()
