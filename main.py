@@ -69,5 +69,14 @@ def GetResults():
     result = f"<p>{largest_number}</p><p>{smallest_number}</p>{tableOutput}"
     return result
 
+@app.route("/clear", methods=["POST"])
+def clear_data():
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    session.query(TableOfNumbers).delete()
+    session.commit()
+
+    return "All data has been cleared. Status: 200"
+
 if __name__ == '__main__':
     app.run()
