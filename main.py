@@ -56,6 +56,7 @@ def GetResults():
     tableOutput = '<table><thead><tr><th>Instance Name</th><th>Number of Generated Numbers</th></tr></thead><tbody>'
     for row in results:
         tableOutput += f'<tr><td>{row.instanceName}</td><td>{row.instance_count}</td></tr>'
+        tableOutput += f'<td style="text-align: center;">{row[1]}</td>'
     tableOutput += '</tbody></table>'
 
     return tableOutput
